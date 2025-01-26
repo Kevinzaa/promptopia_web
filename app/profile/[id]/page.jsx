@@ -2,10 +2,10 @@
 
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import Profile from '@components/profile';
+import Profile from '@components/Profile';
 
 const UserProfile = ({ params }) => {
-  const { id } = params; // Mengambil ID dari URL params
+  const { id } = params; 
   const [posts, setPosts] = useState([]);
   const [user, setUser] = useState(null);
   const router = useRouter();
@@ -13,7 +13,6 @@ const UserProfile = ({ params }) => {
   useEffect(() => {
     const fetchUserData = async () => {
       try {
-        // Fetch data user berdasarkan ID
         const userResponse = await fetch(`/api/users/${id}`);
         if (!userResponse.ok) throw new Error('Failed to fetch user data');
         const userData = await userResponse.json();
