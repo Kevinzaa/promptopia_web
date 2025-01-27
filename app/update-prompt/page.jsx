@@ -1,14 +1,12 @@
 'use client';
 
-import React, { useEffect, useState, Suspense } from 'react';
-import { useSession } from '@node_modules/next-auth/react';
-import { useRouter, useSearchParams } from 'next/navigation';
+import React, { useEffect, useState } from 'react';
+import { useRouter } from 'next/navigation';
 import Form from '@components/Form';
 
-const EditPrompt = () => {
+const EditPrompt = ({ searchParams }) => {
   const router = useRouter();
-  const searchParams = useSearchParams();
-  const promptId = searchParams?.get('id');
+  const promptId = searchParams.id;
 
   const [submitting, setSubmitting] = useState(false);
   const [post, setPost] = useState({ prompt: '', tag: '' });
@@ -48,22 +46,20 @@ const EditPrompt = () => {
         router.push('/');
       }
     } catch (error) {
-      console.error('Create prompt error:', error.message);
+      console.error('Update prompt error:', error.message);
     } finally {
       setSubmitting(false);
     }
   };
 
   return (
-    <Suspense fallback={<div>Loading...</div>}>
-      <Form
-        type="Edit"
-        post={post}
-        setPost={setPost}
-        submitting={submitting}
-        handleSubmit={updatePrompt}
-      />
-    </Suspense>
+    <Form
+      type="Edit"
+      post={post}
+      setPost={setPost}
+      submitting={submitting}
+      handleSubmit={updatePrompt}
+    />
   );
 };
 
